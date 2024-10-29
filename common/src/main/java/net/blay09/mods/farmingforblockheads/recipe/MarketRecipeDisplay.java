@@ -12,12 +12,14 @@ import net.minecraft.world.item.crafting.display.RecipeDisplay;
 import net.minecraft.world.item.crafting.display.SlotDisplay;
 
 public record MarketRecipeDisplay(SlotDisplay payment, SlotDisplay result, SlotDisplay craftingStation, ResourceLocation category,
+                                  int sortIndex,
                                   boolean enabled) implements RecipeDisplay {
     public static final MapCodec<MarketRecipeDisplay> MAP_CODEC = RecordCodecBuilder.mapCodec((instance) -> instance.group(
             SlotDisplay.CODEC.fieldOf("payment").forGetter(MarketRecipeDisplay::payment),
             SlotDisplay.CODEC.fieldOf("result").forGetter(MarketRecipeDisplay::result),
             SlotDisplay.CODEC.fieldOf("crafting_station").forGetter(MarketRecipeDisplay::craftingStation),
             ResourceLocation.CODEC.fieldOf("category").forGetter(MarketRecipeDisplay::category),
+            Codec.INT.fieldOf("sort_index").forGetter(MarketRecipeDisplay::sortIndex),
             Codec.BOOL.fieldOf("enabled").forGetter(MarketRecipeDisplay::enabled)
     ).apply(instance, MarketRecipeDisplay::new));
     public static final StreamCodec<RegistryFriendlyByteBuf, MarketRecipeDisplay> STREAM_CODEC = StreamCodec.composite(SlotDisplay.STREAM_CODEC,
@@ -28,6 +30,8 @@ public record MarketRecipeDisplay(SlotDisplay payment, SlotDisplay result, SlotD
             MarketRecipeDisplay::craftingStation,
             ResourceLocation.STREAM_CODEC,
             MarketRecipeDisplay::category,
+            ByteBufCodecs.INT,
+            MarketRecipeDisplay::sortIndex,
             ByteBufCodecs.BOOL,
             MarketRecipeDisplay::enabled,
             MarketRecipeDisplay::new);
