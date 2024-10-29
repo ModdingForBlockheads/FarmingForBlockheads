@@ -1,1 +1,2 @@
-- Updated to Minecraft 1.21.2
+- Added sortIndex field to market recipes to customize the order they show up
+- Added wrapping of categories buttons if they would overflow the screen
