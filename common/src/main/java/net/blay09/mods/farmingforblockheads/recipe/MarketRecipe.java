@@ -69,7 +69,7 @@ public class MarketRecipe implements Recipe<RecipeInput> {
     private SlotDisplay paymentSlotDisplay(Payment payment) {
         final var ingredient = payment.ingredient();
         final List<SlotDisplay> slotDisplays = new ArrayList<>();
-        ingredient.items().stream()
+        ingredient.items()
                 .map(it -> new ItemStack(it.value(), payment.count()))
                 .map(SlotDisplay.ItemStackSlotDisplay::new)
                 .forEach(slotDisplays::add);

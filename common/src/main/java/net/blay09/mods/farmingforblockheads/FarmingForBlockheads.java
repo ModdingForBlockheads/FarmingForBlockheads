@@ -42,16 +42,4 @@ public class FarmingForBlockheads {
 
         Balm.getEvents().onEvent(CropGrowEvent.Post.class, FarmlandHandler::onGrowEvent);
     }
-
-    public static Component getDefaultPaymentComponent(Payment payment) {
-        final var ingredient = payment.ingredient();
-        if (ingredient.items().isEmpty()) {
-            return Component.literal("<invalid>");
-        }
-
-        final var candidates = ingredient.items();
-        final var index = (int) (System.currentTimeMillis() / 1500L % candidates.size());
-        final var itemHolder = candidates.get(index);
-        return Component.translatable("tooltip.farmingforblockheads.payment_item", payment.count(), itemHolder.value().getName());
-    }
 }

@@ -69,14 +69,9 @@ public class JeiMarketRecipeCategory implements IRecipeCategory<RecipeHolder<Mar
 
     @Override
     public void draw(RecipeHolder<MarketRecipe> recipeHolder, IRecipeSlotsView recipeSlotsView, GuiGraphics guiGraphics, double mouseX, double mouseY) {
-        Component costText = getFormattedCostString(recipeHolder.value());
-        Font font = Minecraft.getInstance().font;
-        int stringWidth = font.width(costText);
-        guiGraphics.drawString(font, costText.getVisualOrderText(), 42 - stringWidth / 2, 35, 0xFFFFFF, true);
-    }
-
-    private Component getFormattedCostString(MarketRecipe recipe) {
-        final var payment = MarketDefaultsRegistry.resolvePayment(recipe);
-        return payment.tooltip().orElseGet(() -> FarmingForBlockheads.getDefaultPaymentComponent(payment));
+        // TODO Component costText = getFormattedCostString(recipeHolder.value());
+        // TODO Font font = Minecraft.getInstance().font;
+        // TODO int stringWidth = font.width(costText);
+        // TODO guiGraphics.drawString(font, costText.getVisualOrderText(), 42 - stringWidth / 2, 35, 0xFFFFFF, true);
     }
 }
