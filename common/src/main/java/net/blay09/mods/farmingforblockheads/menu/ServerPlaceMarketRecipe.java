@@ -71,7 +71,7 @@ public class ServerPlaceMarketRecipe {
             final var itemToUse = itemsToUse.getFirst();
             while (paymentSlotItem.getCount() < desiredCount) {
                 final var desiredAddition = desiredCount - paymentSlotItem.getCount();
-                final var foundSlot = inventory.findSlotMatchingCraftingIngredient(itemToUse);
+                final var foundSlot = inventory.findSlotMatchingCraftingIngredient(itemToUse, paymentSlotItem);
                 if (foundSlot == -1) {
                     break;
                 }
