@@ -1,1 +1,2 @@
-- Updated to Minecraft 1.21.4
+- Fixed recipes with missing result items being loaded, resulting in a crash when opening the market
+  - Data packs adding market recipes should use [load conditions](https://github.com/TwelveIterationMods/FarmingForBlockheads/blob/1.21.4/common/src/main/resources/data/farmingforblockheads/recipe/market/twilightforest/canopy_sapling.json#L7-L26) from now on to prevent spamming the log when mods are missing
