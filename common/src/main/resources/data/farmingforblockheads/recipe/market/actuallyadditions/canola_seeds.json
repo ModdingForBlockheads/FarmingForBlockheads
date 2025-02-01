@@ -1,0 +1,8 @@
+{
+  "type": "farmingforblockheads:market",
+  "category": "farmingforblockheads:seeds",
+  "preset": "actuallyadditions:seeds",
+  "result": {
+    "item": "actuallyadditions:canola_seeds"
+  }
+}
