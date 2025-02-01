@@ -1,1 +1,2 @@
 - Fixed hoppers not working with feeding trough and chicken nest
+- Added Actually Additions seed to the market
