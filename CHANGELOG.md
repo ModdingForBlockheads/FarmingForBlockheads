@@ -1,1 +1,1 @@
-- Fixed market block replacing the block above it when placed even if it's not replaceable
+- Fixed hoppers not working with feeding trough and chicken nest
