@@ -1,0 +1,28 @@
+{
+  "type": "farmingforblockheads:market",
+  "category": "farmingforblockheads:seeds",
+  "defaults": "selling.seeds.actuallyadditions.flax_seeds",
+  "result": {
+    "item": "actuallyadditions:flax_seeds"
+  },
+  "conditions": [
+    {
+      "type": "forge:mod_loaded",
+      "mod": "actuallyadditions"
+    }
+  ],
+  "fabric:load_conditions": [
+    {
+      "condition": "fabric:all_mods_loaded",
+      "values": [
+        "actuallyadditions"
+      ]
+    }
+  ],
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "actuallyadditions"
+    }
+  ]
+}
