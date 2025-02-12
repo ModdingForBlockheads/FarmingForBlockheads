@@ -18,9 +18,7 @@ plugins {
 
 apply plugin: "org.spongepowered.mixin"
 
-group = mod_group
 archivesBaseName = "${mod_id}-forge-${minecraft_version}"
-version = mod_version
 
 minecraft {
     mappings channel: 'official', version: minecraft_version
@@ -54,7 +52,7 @@ minecraft {
             mods {
                 "${mod_id}" {
                     source sourceSets.main
-                    source project(":shared").sourceSets.main
+                    source project(":common").sourceSets.main
                 }
             }
         }
@@ -85,7 +83,7 @@ minecraft {
             mods {
                 "${mod_id}" {
                     source sourceSets.main
-                    source project(":shared").sourceSets.main
+                    source project(":common").sourceSets.main
                 }
             }
         }
@@ -114,7 +112,7 @@ minecraft {
             mods {
                 "${mod_id}" {
                     source sourceSets.main
-                    source project(":shared").sourceSets.main
+                    source project(":common").sourceSets.main
                 }
             }
         }
@@ -145,7 +143,7 @@ minecraft {
             mods {
                 "${mod_id}" {
                     source sourceSets.main
-                    source project(":shared").sourceSets.main
+                    source project(":common").sourceSets.main
                 }
             }
         }
@@ -164,7 +162,7 @@ sourceSets {
 dependencies {
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
     annotationProcessor 'org.spongepowered:mixin:0.8.4:processor'
-    compileOnly project(":shared")
+    compileOnly project(":common")
 
     implementation fg.deobf("net.blay09.mods:balm-forge:${balm_version}") {
         changing = balm_version.endsWith("SNAPSHOT")
@@ -189,7 +187,7 @@ dependencies {
 apply from: 'dependencies.gradle'
 
 tasks.withType(JavaCompile) {
-    source(project(":shared").sourceSets.main.allSource)
+    source(project(":common").sourceSets.main.allSource)
 }
 
 def resourceTargets = ['META-INF/mods.toml', 'pack.mcmeta']
@@ -197,10 +195,10 @@ def replaceProperties = [
         minecraft_version: minecraft_version, minecraft_version_range: minecraft_version_range,
         forge_version: forge_version, forge_version_range: forge_version_range,
         forge_loader_version_range: forge_loader_version_range,
-        mod_id: mod_id, mod_version: mod_version, balm_version_range: balm_version_range,
+        mod_id: mod_id, version: version, balm_version_range: balm_version_range,
 ]
 processResources {
-    from project(":shared").sourceSets.main.resources
+    from project(":common").sourceSets.main.resources
 
     inputs.properties replaceProperties
     replaceProperties.put 'project', project
