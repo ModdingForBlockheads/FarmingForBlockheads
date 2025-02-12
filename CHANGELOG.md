@@ -1,2 +1,1 @@
-- Fixed hoppers not working with feeding trough and chicken nest
-- Added Actually Additions seed to the market
+- Added icon property (`"icon": { "id": "minecraft:redstone" }`) to customize the icon shown for a market listing (defaults to the result item)
