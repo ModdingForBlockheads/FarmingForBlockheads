@@ -30,13 +30,15 @@ public class MarketRecipe implements Recipe<RecipeInput> {
     private final String defaults;
     private final ResourceLocation category;
     private final ItemStack result;
+    private final ItemStack icon;
     private final Payment payment;
     private final int sortIndex;
 
-    public MarketRecipe(ItemStack result, String defaults, @SuppressWarnings("OptionalUsedAsFieldOrParameterType") Optional<ResourceLocation> category, @SuppressWarnings("OptionalUsedAsFieldOrParameterType") Optional<Payment> payment, int sortIndex) {
+    public MarketRecipe(ItemStack result, String defaults, @SuppressWarnings("OptionalUsedAsFieldOrParameterType") Optional<ResourceLocation> category, @SuppressWarnings("OptionalUsedAsFieldOrParameterType") Optional<Payment> payment, int sortIndex, @SuppressWarnings("OptionalUsedAsFieldOrParameterType") Optional<ItemStack> icon) {
         this.defaults = defaults;
         this.category = category.orElse(null);
         this.result = result;
+        this.icon = icon.orElse(result);
         this.payment = payment.orElse(null);
         this.sortIndex = sortIndex;
     }
@@ -87,7 +89,8 @@ public class MarketRecipe implements Recipe<RecipeInput> {
                         ModBlocks.market.asItem()),
                 effectiveCategory,
                 sortIndex,
-                enabled()));
+                enabled(),
+                new SlotDisplay.ItemStackSlotDisplay(icon)));
     }
 
     @Override
@@ -140,7 +143,8 @@ public class MarketRecipe implements Recipe<RecipeInput> {
                 ExtraCodecs.NON_EMPTY_STRING.fieldOf("defaults").forGetter(recipe -> recipe.defaults),
                 ResourceLocation.CODEC.optionalFieldOf("category").forGetter(MarketRecipe::getCategory),
                 PaymentImpl.CODEC.optionalFieldOf("payment").forGetter(MarketRecipe::getPayment),
-                Codec.INT.fieldOf("sortIndex").orElse(0).forGetter(MarketRecipe::getSortIndex)
+                Codec.INT.fieldOf("sortIndex").orElse(0).forGetter(MarketRecipe::getSortIndex),
+                ItemStack.CODEC.optionalFieldOf("icon").forGetter(recipe -> Optional.ofNullable(recipe.icon))
         ).apply(instance, MarketRecipe::new));
 
         public static final StreamCodec<RegistryFriendlyByteBuf, MarketRecipe> STREAM_CODEC = StreamCodec.of(Serializer::toNetwork, Serializer::fromNetwork);
@@ -161,7 +165,8 @@ public class MarketRecipe implements Recipe<RecipeInput> {
             final var category = buf.readResourceLocation();
             final var payment = PaymentImpl.fromNetwork(buf);
             final var sortIndex = buf.readVarInt();
-            return new MarketRecipe(resultItem, defaults, Optional.of(category), Optional.of(payment), sortIndex);
+            final var icon = ItemStack.OPTIONAL_STREAM_CODEC.decode(buf);
+            return new MarketRecipe(resultItem, defaults, Optional.of(category), Optional.of(payment), sortIndex, Optional.of(icon));
         }
 
         public static void toNetwork(RegistryFriendlyByteBuf buf, MarketRecipe recipe) {
@@ -170,6 +175,7 @@ public class MarketRecipe implements Recipe<RecipeInput> {
             buf.writeResourceLocation(recipe.category);
             PaymentImpl.toNetwork(buf, recipe.payment);
             buf.writeVarInt(recipe.sortIndex);
+            ItemStack.OPTIONAL_STREAM_CODEC.encode(buf, recipe.icon);
         }
     }
 

@@ -387,7 +387,8 @@ public class MarketMenu extends AbstractContainerMenu {
                                 .map(MarketCategory::sortIndex)
                                 .orElse(0) : 0)
                 .thenComparing(recipe -> recipe.display() instanceof MarketRecipeDisplay marketRecipeDisplay ? marketRecipeDisplay.sortIndex() : 0)
-                .thenComparing(recipe -> recipe.display().result().resolveForFirstStack(contextMap)
+                .thenComparing(recipe -> (recipe.display() instanceof MarketRecipeDisplay marketRecipeDisplay ? marketRecipeDisplay.icon()
+                        .resolveForFirstStack(contextMap) : recipe.display().result().resolveForFirstStack(contextMap))
                         .getDisplayName()
                         .getString());
     }

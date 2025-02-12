@@ -1,5 +1,6 @@
 package net.blay09.mods.farmingforblockheads.menu;
 
+import net.blay09.mods.farmingforblockheads.recipe.MarketRecipeDisplay;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.display.RecipeDisplayEntry;
@@ -20,7 +21,12 @@ public class MarketListingSlot extends FakeSlot {
     @Override
     public ItemStack getItem() {
         if (recipeDisplayEntry != null) {
-            return recipeDisplayEntry.display().result().resolveForFirstStack(SlotDisplayContext.fromLevel(level));
+            final var display = recipeDisplayEntry.display();
+            if (display instanceof MarketRecipeDisplay marketRecipeDisplay) {
+                return marketRecipeDisplay.icon().resolveForFirstStack(SlotDisplayContext.fromLevel(level));
+            } else {
+                return display.result().resolveForFirstStack(SlotDisplayContext.fromLevel(level));
+            }
         }
         return ItemStack.EMPTY;
     }
