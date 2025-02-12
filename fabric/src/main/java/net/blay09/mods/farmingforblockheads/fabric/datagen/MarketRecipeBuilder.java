@@ -49,7 +49,11 @@ public class MarketRecipeBuilder implements RecipeBuilder {
 
     @Override
     public void save(RecipeOutput recipeOutput, ResourceLocation resourceLocation) {
-        final var marketRecipe = new MarketRecipe(new ItemStack(result, count), category, preset, Optional.ofNullable(payment));
+        final var marketRecipe = new MarketRecipe(new ItemStack(result, count),
+                category,
+                preset,
+                Optional.ofNullable(payment),
+                Optional.of(new ItemStack(result, count)));
         recipeOutput.accept(resourceLocation, marketRecipe, null);
     }
 

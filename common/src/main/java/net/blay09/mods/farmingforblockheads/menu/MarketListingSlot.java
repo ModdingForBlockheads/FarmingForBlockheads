@@ -11,34 +11,34 @@ import org.jetbrains.annotations.Nullable;
 
 public class MarketListingSlot extends FakeSlot {
 
-	private RecipeHolder<MarketRecipe> recipe;
+    private RecipeHolder<MarketRecipe> recipe;
 
-	public MarketListingSlot(Container container, int slotId, int x, int y) {
-		super(container, slotId, x, y);
-	}
+    public MarketListingSlot(Container container, int slotId, int x, int y) {
+        super(container, slotId, x, y);
+    }
 
-	@Override
-	public ItemStack getItem() {
-		return recipe != null ? recipe.value().getResultItem(RegistryAccess.EMPTY) : ItemStack.EMPTY;
-	}
+    @Override
+    public ItemStack getItem() {
+        return recipe != null ? recipe.value().getIcon() : ItemStack.EMPTY;
+    }
 
-	@Override
-	public boolean hasItem() {
-		return recipe != null;
-	}
+    @Override
+    public boolean hasItem() {
+        return recipe != null;
+    }
 
-	@Override
-	public boolean isActive() {
-		return recipe != null;
-	}
+    @Override
+    public boolean isActive() {
+        return recipe != null;
+    }
 
-	public void setRecipe(@Nullable RecipeHolder<MarketRecipe>  recipe) {
-		this.recipe = recipe;
-	}
+    public void setRecipe(@Nullable RecipeHolder<MarketRecipe> recipe) {
+        this.recipe = recipe;
+    }
 
-	@Nullable
-	public RecipeHolder<MarketRecipe> getRecipe() {
-		return recipe;
-	}
+    @Nullable
+    public RecipeHolder<MarketRecipe> getRecipe() {
+        return recipe;
+    }
 
 }
